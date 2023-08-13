@@ -31,33 +31,37 @@ class FileStorage:
             with open(FileStorage.__file_path, "w", encoding="utf-8") as JF:
                 json.dump(tempDict, JF)
 
+    def allclasses(self):
+        """Returns a dictionary of accepted classes with references"""
+        from models.base_model import BaseModel
+        # from models.user import User
+        # from models.state import State
+        # from models.city import City
+        # from models.amenity import Amenity
+        # from models.place import Place
+        # from models.review import Review
+
+        allclasses = {
+                    "BaseModel": BaseModel,
+                    #  "User": User,
+                    #  "State": State,
+                    #  "City": City,
+                    #  "Amenity": Amenity,
+                    #  "Place": Place,
+                    #  "Review": Review
+                    }
+        return allclasses
+
     def reload(self):
         """Deserializes the JSON file to __objects
         (only if the JSON file (__file_path) exists)"""
 
         try:
-            from models.base_model import BaseModel
-            # from models.user import User
-            # from models.state import State
-            # from models.city import City
-            # from models.amenity import Amenity
-            # from models.place import Place
-            # from models.review import Review
-
-            allclasses = {
-                            "BaseModel": BaseModel,
-                            # "User": User,
-                            # "State": State,
-                            # "City": City,
-                            # "Amenity": Amenity,
-                            # "Place": Place,
-                            # "Review": Review
-                            }
             with open(FileStorage.__file_path, encoding="utf-8") as JS:
                 dictObj = json.load(JS)
                 for valObj in dictObj.values():
                     clsName = valObj['__class__']
-                    clsObj = allclasses[clsName]
+                    clsObj = self.allclasses()[clsName]
                     self.new(clsObj(**valObj))
         except FileNotFoundError:
             pass
