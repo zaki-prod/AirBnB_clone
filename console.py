@@ -16,6 +16,10 @@ class HBNBCommand(cmd.Cmd):
         """Quit is a modified method. It helps us to exit from the Console."""
         return True
 
+    def emptyline(self):
+        """Passes simpley upon enter"""
+        pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
