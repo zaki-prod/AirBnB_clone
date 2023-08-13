@@ -10,6 +10,10 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
+    def emptyline(self):
+        """Passes simpley upon enter"""
+        pass
+
     def do_quit(self, line):
         """Quit is a modified method. It helps us to exit from the Console."""
         return True
@@ -18,11 +22,6 @@ class HBNBCommand(cmd.Cmd):
         """Helps us to exit from the Console."""
         print("")
         return True
-
-    def emptyline(self):
-        """Passes simpley upon enter"""
-        pass
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
