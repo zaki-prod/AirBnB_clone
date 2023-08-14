@@ -5,7 +5,7 @@
 from models.base_model import BaseModel
 
 
-class Amenity(baseModel):
+class Amenity(BaseModel):
     """This class manages amenity objects"""
 
     name = ""
