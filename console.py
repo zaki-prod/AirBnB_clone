@@ -78,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
         if line != "":
             token = line.split(" ")
             if token[0] not in storage.allclasses():
-                print("** class doesn't exist")
+                print("** class doesn't exist **")
             else:
                 new_list = []
                 for obj in storage.all().values():

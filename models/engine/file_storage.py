@@ -25,6 +25,7 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file(path:__file_path)"""
+        from ..base_model import BaseModel
         tempDict = {}
         for key, value in FileStorage.__objects.items():
             tempDict[key] = value.to_dict()
@@ -58,10 +59,10 @@ class FileStorage:
 
         try:
             with open(FileStorage.__file_path, encoding="utf-8") as JS:
-                dictObj = json.load(JS)
-                for valObj in dictObj.values():
-                    clsName = valObj['__class__']
+                FileStorage.__objects = json.load(JS)
+                for key, val in FileStorage.__objects.items():
+                    clsName = val['__class__']
                     clsObj = self.allclasses()[clsName]
-                    self.new(clsObj(**valObj))
+                    FileStorage.__objects[key] = clsObj(**val)
         except FileNotFoundError:
             pass
