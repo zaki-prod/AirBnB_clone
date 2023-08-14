@@ -41,13 +41,13 @@ class HBNBCommand(cmd.Cmd):
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            token = line.split(" ")
+            token = line.split(' ')
             if token[0] not in storage.allclasses():
                 print("** class doesn't exist **")
             elif len(token) < 2:
                 print("** instance id missing **")
             else:
-                key = "f{token[0]}.{token[1]}"
+                key = "{}.{}".format(token[0], token[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
             elif len(token) < 2:
                 print("** instance id missing **")
             else:
-                key = "f{token[0]}.{token[1]}"
+                key = "{}.{}".format(token[0], token[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -94,9 +94,30 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, line):
         """Updates an instance based on the class name
         and id by adding or updating attribute"""
+        token = line.split(' ')
+
         if line == "" or line is None:
             print("** class name missing **")
-            return
+
+        elif token[0] not in storage.allclasses():
+            print("** class doesn't exist **")
+
+        elif len(token) < 2:
+            print("** instance id missing **")
+
+        elif len(token) < 3:
+            print("** attribute name missing **")
+
+        elif len(token) < 4:
+            print("** value missing **")
+
+        else:
+            key = "{}.{}".format(token[0], token[1])
+            if key not in storage.all():
+                print("** no instance found **")
+            else:
+                setattr(storage.all()[key], token[2], token[3])
+                storage.save()
 
 
 if __name__ == '__main__':
