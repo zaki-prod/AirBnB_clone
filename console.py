@@ -116,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
             if key not in storage.all():
                 print("** no instance found **")
             else:
-                setattr(storage.all()[key], token[2], token[3])
+                setattr(storage.all()[key], token[2], token[3].strip("\""))
                 storage.save()
 
 
